@@ -52,6 +52,7 @@ android {
 }
 
 dependencies {
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     val room_version = "2.6.0"
 
     implementation ("androidx.room:room-runtime:$room_version")

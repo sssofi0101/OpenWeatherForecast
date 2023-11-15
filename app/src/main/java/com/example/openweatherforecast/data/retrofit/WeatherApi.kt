@@ -10,5 +10,5 @@ interface WeatherApi {
 
     @GET("forecast?units=metric&lang=ru")
     @Headers("Content-type: application/json")
-    fun getForecast(@Query("lat") lat:Double,@Query("lon") lon:Double,@Query("key") key:String): Call<Forecast>
+    fun getForecast(@Query("lat") lat:Double,@Query("lon") lon:Double,@Query("appid") appid:String): Call<Forecast>
 }
