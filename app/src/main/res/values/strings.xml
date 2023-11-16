@@ -11,4 +11,8 @@
     <string name="cities_fr_text">Это будет фрагмент с сохраненными городами</string>
     <string name="map_fr_text">Это будет фрагмент с данными на карте</string>
     <string name="settings_fr_text">Это будет фрагмент с настройками</string>
+    <string name="cloudiness">Облачность, %</string>
+    <string name="pressure">Давление, 1гПа</string>
+    <string name="humidity">Влажность, %</string>
+    <string name="wind_speed">Скорость ветра, м/с</string>
 </resources>
