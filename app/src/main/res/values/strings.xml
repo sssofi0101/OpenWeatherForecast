@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">OpenWeatherForecast</string>
+    <string name="weather">Погода</string>
+    <string name="cities">Города</string>
+    <string name="map">Карта</string>
+    <string name="air">Воздух</string>
+    <string name="settings">Настройки</string>
 </resources>

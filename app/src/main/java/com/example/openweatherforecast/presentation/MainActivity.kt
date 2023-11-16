@@ -22,6 +22,6 @@ class MainActivity : AppCompatActivity() {
 
     fun getF(){
         thread(start = true) { val repositoryImpl = RepositoryImpl(RetrofitImpl.getService())
-            repositoryImpl.getForecast(44.34,10.99) }
+            repositoryImpl.loadForecast(44.34,10.99) }
     }
 }

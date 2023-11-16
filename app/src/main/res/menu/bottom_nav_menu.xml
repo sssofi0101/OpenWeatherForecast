@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_weather"
+        android:icon="@drawable/weather"
+        android:title="@string/weather" />
+
+    <item
+        android:id="@+id/navigation_cities"
+        android:icon="@drawable/cities"
+        android:title="@string/cities" />
+
+    <item
+        android:id="@+id/navigation_map"
+        android:icon="@drawable/map"
+        android:title="@string/map" />
+
+    <item
+        android:id="@+id/navigation_air"
+        android:icon="@drawable/air"
+        android:title="@string/air" />
+
+    <item
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/settings"
+        android:title="@string/settings" />
+
+</menu>
