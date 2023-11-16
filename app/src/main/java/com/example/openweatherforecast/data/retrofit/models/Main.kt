@@ -1,4 +1,4 @@
-package com.example.openweatherforecast.domain
+package com.example.openweatherforecast.data.retrofit.models
 
 data class Main(
     val feels_like: Double,

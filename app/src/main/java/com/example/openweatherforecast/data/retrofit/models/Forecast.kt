@@ -1,4 +1,4 @@
-package com.example.openweatherforecast.domain
+package com.example.openweatherforecast.data.retrofit.models
 
 data class Forecast(
     val city: City,
