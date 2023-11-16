@@ -7,4 +7,8 @@
     <string name="settings">Настройки</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="air_fr_text">Это будет фрагмент с состоянием воздуха</string>
+    <string name="cities_fr_text">Это будет фрагмент с сохраненными городами</string>
+    <string name="map_fr_text">Это будет фрагмент с данными на карте</string>
+    <string name="settings_fr_text">Это будет фрагмент с настройками</string>
 </resources>
