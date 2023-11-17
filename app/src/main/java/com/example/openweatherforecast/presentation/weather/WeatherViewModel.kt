@@ -70,7 +70,7 @@ class WeatherViewModel:ViewModel() {
                         ) {
                             if (response.body() != null) {
                                 val entities = getMainDayForecastEntities(response.body()!!)
-                                // forecast.postValue(response.body())
+                                 forecast.postValue(entities)
                             }
                             else {
                                 loadState.postValue(MainWeatherState.error("Произошла ошибка при получении данных"))

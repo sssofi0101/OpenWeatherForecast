@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.openweatherforecast.databinding.FragmentWeatherBinding
+import com.example.openweatherforecast.presentation.adapters.DaysAdapter
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.squareup.picasso.Picasso
@@ -73,10 +74,16 @@ class WeatherFragment : Fragment() {
 
         with(binding){
             daysRc.layoutManager = LinearLayoutManager(this@WeatherFragment.requireContext(),LinearLayoutManager.VERTICAL,false)
+
         }
+        val adapter = DaysAdapter(arrayListOf())
+        binding.daysRc.adapter = adapter
 
         viewModel.forecast.observe(viewLifecycleOwner){
-            //TODO: Отрисовка данных в RecyclerView
+            adapter.cleanList()
+            for (item in it){
+                adapter.addDayForecast(item)
+            }
         }
 
         viewModel.currentWeather.observe(viewLifecycleOwner){
