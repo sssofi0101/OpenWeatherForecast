@@ -17,7 +17,7 @@ class DaysAdapter (private val daysList: ArrayList<MainDayForecastEntity>): Recy
             dateTv.text = dayForecast.date
             maxMinTempTv.text = "${dayForecast.max_temp} °C /" + "${dayForecast.min_temp} °C"
             cloudTv.text = dayForecast.cloudiness.toString().take(5)
-            humidityTv.text = dayForecast.cloudiness.toString().take(5)
+            humidityTv.text = dayForecast.humidity.toString().take(5)
             pressureTv.text = dayForecast.pressure.toString().take(6)
             windTv.text = dayForecast.windSpeed.toString().take(4)
         }
