@@ -25,9 +25,7 @@ class RepositoryImpl ( private val remoteDataSource: WeatherApi, private val loc
         return remoteDataSource.getForecast(lat,lon,BuildConfig.API_KEY)
     }
 
-    override fun loadDetailedDayForecast(day: String) : DayDetailsEntity{
-        TODO("Not yet implemented")
-    }
+
 
     override fun saveCurrentWeather(currentWeather: CurrentWeatherEntity) {
         localDatabase.currentWeatherDao().deleteCurrentWeather()

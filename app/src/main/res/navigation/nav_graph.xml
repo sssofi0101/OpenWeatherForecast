@@ -13,7 +13,8 @@
             android:id="@+id/action_weatherFragment_to_dayWeatherFragment"
             app:destination="@id/dayWeatherFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            app:exitAnim="@anim/nav_default_exit_anim"
+            />
     </fragment>
     <fragment
         android:id="@+id/airFragment"
@@ -39,5 +40,10 @@
         android:id="@+id/dayWeatherFragment"
         android:name="com.example.openweatherforecast.presentation.detailedweather.DayWeatherFragment"
         android:label="fragment_day_weather"
-        tools:layout="@layout/fragment_day_weather" />
+        tools:layout="@layout/fragment_day_weather">
+    <argument
+        android:name="dateArg"
+        app:argType="string"
+        />
+    </fragment>
 </navigation>

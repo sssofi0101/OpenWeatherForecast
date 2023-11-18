@@ -7,7 +7,7 @@ import com.example.openweatherforecast.domain.models.DayDetailsEntity
 class DetailedDayForecastUseCase(val repository: Repository) {
     fun getDetailedForecast(day:String) : DayDetailsEntity
     {
-        return repository.loadDetailedDayForecast(day)
+        return repository.loadCachedDayDetails(day)
     }
 
     fun getCachedDetailedForecast(day:String) : DayDetailsEntity{
