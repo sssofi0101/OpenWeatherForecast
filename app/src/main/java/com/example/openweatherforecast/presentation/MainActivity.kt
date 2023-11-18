@@ -3,6 +3,7 @@ package com.example.openweatherforecast.presentation
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
+import com.example.openweatherforecast.ForecastApp
 import com.example.openweatherforecast.R
 import com.example.openweatherforecast.data.repository.RepositoryImpl
 import com.example.openweatherforecast.data.retrofit.RetrofitImpl
@@ -56,7 +57,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getF(){
-        thread(start = true) { val repositoryImpl = RepositoryImpl(RetrofitImpl.getService())
+        thread(start = true) { val repositoryImpl = RepositoryImpl(ForecastApp.remoteDataSource,ForecastApp.database)
             repositoryImpl.loadForecast(44.34,10.99) }
     }
 

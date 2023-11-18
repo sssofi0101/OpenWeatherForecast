@@ -1,9 +1,10 @@
-package com.example.openweatherforecast.data.room
+package com.example.openweatherforecast.data.room.daos
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.example.openweatherforecast.data.room.entities.Day
 
 @Dao
 interface DaysDao {

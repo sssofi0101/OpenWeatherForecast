@@ -1,4 +1,4 @@
-package com.example.openweatherforecast.data.room
+package com.example.openweatherforecast.data.room.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
