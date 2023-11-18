@@ -26,6 +26,8 @@ class MainActivity : AppCompatActivity() {
 
         val navController = navHostFragment.navController
 
+
+
         navView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.navigation_weather -> {

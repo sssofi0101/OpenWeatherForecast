@@ -14,6 +14,9 @@ class DaysAdapter (private val daysList: ArrayList<MainDayForecastEntity>): Recy
         private val binding = MainWeatherItemBinding.bind(item)
 
         fun bind(dayForecast:MainDayForecastEntity) = with(binding){
+            itemView.setOnClickListener {
+
+            }
             dateTv.text = dayForecast.date
             maxMinTempTv.text = "${dayForecast.max_temp} °C /" + "${dayForecast.min_temp} °C"
             cloudTv.text = dayForecast.cloudiness.toString().take(5)
