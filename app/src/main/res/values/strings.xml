@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">OpenWeatherForecast</string>
+    <string name="weather">Погода</string>
+    <string name="cities">Города</string>
+    <string name="map">Карта</string>
+    <string name="air">Воздух</string>
+    <string name="settings">Настройки</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="air_fr_text">Это будет фрагмент с состоянием воздуха</string>
+    <string name="cities_fr_text">Это будет фрагмент с сохраненными городами</string>
+    <string name="map_fr_text">Это будет фрагмент с данными на карте</string>
+    <string name="settings_fr_text">Это будет фрагмент с настройками</string>
+    <string name="cloudiness">Облачность, %</string>
+    <string name="pressure">Давление, гПа</string>
+    <string name="humidity">Влажность, %</string>
+    <string name="wind_speed">Скорость ветра, м/с</string>
+    <string name="avg_humidity">Средняя влажность, %</string>
+    <string name="avg_wind_speed">Cредняя скорость ветра, м/с</string>
+    <string name="avg_cloudiness">Средняя облачность, %</string>
+    <string name="avg_pressure">Среднее давление, гПа</string>
+    <string name="max_temp">Максимальная температура</string>
+    <string name="min_temp">Минимальная температура</string>
+    <string name="wind_gust">Порывы ветра до, м/с</string>
+    <string name="avg_visibility">Средняя видимость, м</string>
 </resources>
