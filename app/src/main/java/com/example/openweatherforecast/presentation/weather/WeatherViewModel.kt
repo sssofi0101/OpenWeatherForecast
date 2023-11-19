@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.openweatherforecast.ForecastApp
 import com.example.openweatherforecast.data.repository.RepositoryImpl
-import com.example.openweatherforecast.data.retrofit.RetrofitImpl
 import com.example.openweatherforecast.data.retrofit.models.CurrentWeather
 import com.example.openweatherforecast.data.retrofit.models.Forecast
 import com.example.openweatherforecast.data.room.entities.DayDetails
@@ -48,7 +47,6 @@ class WeatherViewModel:ViewModel() {
                                     curWeather.weather.first().description
                                 )
                                 mainForecastUseCase.saveCurrentWeather(currentWeatherEntity)
-                                //detailedDayForecastUseCase.saveDetailedForecast(DayDetails(getStringDay(Date(curWeather.dt.toLong())),curWeather.sys.sunrise.toLong(), curWeather.sys.sunset.toLong()))
                                 currentWeather.postValue(currentWeatherEntity)
                             }
                             else {
@@ -60,7 +58,6 @@ class WeatherViewModel:ViewModel() {
                         }
 
                         override fun onFailure(call: Call<CurrentWeather>, t: Throwable) {
-                            loadState.postValue(MainWeatherState.error("Произошла ошибка при получении данных"))
                             currentWeather.postValue(mainForecastUseCase.getCachedCurrentWeather())
                         }
 
@@ -90,7 +87,6 @@ class WeatherViewModel:ViewModel() {
                         }
 
                         override fun onFailure(call: Call<Forecast>, t: Throwable) {
-                            loadState.postValue(MainWeatherState.error("Произошла ошибка при получении данных"))
                             forecast.postValue(mainForecastUseCase.getCachedMainForecast())
                         }
 
@@ -210,8 +206,6 @@ class WeatherViewModel:ViewModel() {
         for (d in dayDetailsList){
             detailedDayForecastUseCase.saveDetailedForecast(d)
         }
-
-
         return daysForecastEntities
     }
 

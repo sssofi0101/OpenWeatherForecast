@@ -28,12 +28,6 @@ class WeatherFragment : Fragment() {
 
     private val viewModel by viewModels<WeatherViewModel>()
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

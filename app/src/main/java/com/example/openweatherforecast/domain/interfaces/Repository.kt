@@ -2,7 +2,6 @@ package com.example.openweatherforecast.domain.interfaces
 
 import com.example.openweatherforecast.data.retrofit.models.CurrentWeather
 import com.example.openweatherforecast.data.retrofit.models.Forecast
-import com.example.openweatherforecast.data.room.entities.Day
 import com.example.openweatherforecast.data.room.entities.DayDetails
 import com.example.openweatherforecast.domain.models.CurrentWeatherEntity
 import com.example.openweatherforecast.domain.models.DayDetailsEntity

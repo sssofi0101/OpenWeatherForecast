@@ -1,6 +1,5 @@
 package com.example.openweatherforecast.data.repository
 
-import android.util.Log
 import com.example.openweatherforecast.BuildConfig
 import com.example.openweatherforecast.data.retrofit.WeatherApi
 import com.example.openweatherforecast.data.retrofit.models.CurrentWeather
@@ -13,8 +12,6 @@ import com.example.openweatherforecast.domain.models.CurrentWeatherEntity
 import com.example.openweatherforecast.domain.models.DayDetailsEntity
 import com.example.openweatherforecast.domain.models.MainDayForecastEntity
 import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class RepositoryImpl ( private val remoteDataSource: WeatherApi, private val localDatabase: AppDatabase):Repository {
     override fun loadCurrentWeather(lat: Double, lon: Double) : Call<CurrentWeather> {
@@ -41,8 +38,6 @@ class RepositoryImpl ( private val remoteDataSource: WeatherApi, private val loc
     }
 
     override fun saveDayDetails(dayDetails: DayDetails) {
-
-        //localDatabase.dayDetailsDao().deleteAllDayDetails()
         localDatabase.dayDetailsDao().addDayDetails(dayDetails)
     }
 

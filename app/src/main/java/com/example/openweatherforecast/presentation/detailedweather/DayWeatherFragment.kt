@@ -1,25 +1,20 @@
 package com.example.openweatherforecast.presentation.detailedweather
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.activity.addCallback
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.openweatherforecast.R
 import com.example.openweatherforecast.databinding.FragmentDayWeatherBinding
-import com.example.openweatherforecast.presentation.weather.WeatherViewModel
 
 class DayWeatherFragment : Fragment() {
     private val viewModel by viewModels<DayDetailedViewModel>()
     private lateinit var binding : FragmentDayWeatherBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
