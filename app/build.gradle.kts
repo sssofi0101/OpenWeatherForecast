@@ -60,6 +60,12 @@ dependencies {
     annotationProcessor ("androidx.room:room-compiler:$room_version")
     ksp("androidx.room:room-compiler:$room_version")
 
+    val daggerVersion = "2.36"
+    val dagger = "com.google.dagger:dagger:$daggerVersion"
+    val daggerCompiler = "com.google.dagger:dagger-compiler:$daggerVersion"
+    implementation (dagger)
+    ksp(daggerCompiler)
+
     implementation ("com.google.android.gms:play-services-location:21.0.1")
 
     implementation("androidx.core:core-ktx:1.9.0")
