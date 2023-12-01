@@ -18,14 +18,26 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.sql.Date
 import java.text.DateFormat
+import javax.inject.Inject
 
 class WeatherViewModel:ViewModel() {
     var forecast = MutableLiveData<List<MainDayForecastEntity>>()
     var currentWeather = MutableLiveData<CurrentWeatherEntity>()
     val loadState = MutableLiveData<MainWeatherState>()
-    private val repository:RepositoryImpl = RepositoryImpl(ForecastApp.remoteDataSource,ForecastApp.database)
-    private val mainForecastUseCase = MainForecastUseCase(repository)
-    private val detailedDayForecastUseCase = DetailedDayForecastUseCase(repository)
+    @Inject
+    lateinit var repository: RepositoryImpl
+    @Inject
+    lateinit var mainForecastUseCase:MainForecastUseCase
+    @Inject
+    lateinit var detailedDayForecastUseCase: DetailedDayForecastUseCase
+
+    init {
+        ForecastApp.appComponent.inject(this)
+    }
+
+    //private val repository:RepositoryImpl = RepositoryImpl(ForecastApp.remoteDataSource,ForecastApp.database)
+        //private val mainForecastUseCase = MainForecastUseCase(repository)
+    //private val detailedDayForecastUseCase = DetailedDayForecastUseCase(repository)
 
     fun loadForecast(lat:Double,lon:Double){
         viewModelScope.launch {

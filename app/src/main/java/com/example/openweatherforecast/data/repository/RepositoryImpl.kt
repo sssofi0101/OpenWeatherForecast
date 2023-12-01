@@ -12,8 +12,9 @@ import com.example.openweatherforecast.domain.models.CurrentWeatherEntity
 import com.example.openweatherforecast.domain.models.DayDetailsEntity
 import com.example.openweatherforecast.domain.models.MainDayForecastEntity
 import retrofit2.Call
+import javax.inject.Inject
 
-class RepositoryImpl ( private val remoteDataSource: WeatherApi, private val localDatabase: AppDatabase):Repository {
+class RepositoryImpl @Inject constructor( private val remoteDataSource: WeatherApi, private val localDatabase: AppDatabase): Repository {
     override fun loadCurrentWeather(lat: Double, lon: Double) : Call<CurrentWeather> {
        return remoteDataSource.getCurrentWeather(lat,lon,BuildConfig.API_KEY)
     }

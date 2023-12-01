@@ -6,8 +6,9 @@ import com.example.openweatherforecast.domain.interfaces.Repository
 import com.example.openweatherforecast.domain.models.CurrentWeatherEntity
 import com.example.openweatherforecast.domain.models.MainDayForecastEntity
 import retrofit2.Call
+import javax.inject.Inject
 
-class MainForecastUseCase (val repository: Repository) {
+class MainForecastUseCase @Inject constructor(val repository: Repository) {
     fun getMainForecast(lat:Double, lon:Double) : Call<Forecast> {
         return repository.loadForecast(lat,lon)
     }

@@ -9,7 +9,7 @@ import com.example.openweatherforecast.data.room.entities.CurrentWeather
 import com.example.openweatherforecast.data.room.entities.Day
 import com.example.openweatherforecast.data.room.entities.DayDetails
 
-@Database(entities = [Day::class, DayDetails::class, CurrentWeather::class], version = 2)
+@Database(entities = [Day::class, DayDetails::class, CurrentWeather::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase(){
     abstract fun daysDao(): DaysDao
     abstract fun dayDetailsDao(): DayDetailsDao

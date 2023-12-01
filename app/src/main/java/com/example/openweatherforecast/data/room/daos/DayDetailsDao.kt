@@ -16,7 +16,8 @@ interface DayDetailsDao {
     @Query("DELETE FROM DayDetails")
     fun deleteAllDayDetails()
 
-    @Query("SELECT DayDetails.date,max_gust,avg_visibility,humidity,clouds,pressure, wind_speed,max_temp,min_temp FROM DayDetails INNER JOIN Days ON DayDetails.date = Days.date WHERE DayDetails.date LIKE :date")
+    @Query("SELECT DayDetails.date,max_gust,avg_visibility,humidity,clouds,pressure, wind_speed," +
+            "max_temp,min_temp FROM DayDetails INNER JOIN Days ON DayDetails.date = Days.date WHERE DayDetails.date LIKE :date")
     fun getFullDayInfo(date : String) : DayDetailsEntity
 
 }
