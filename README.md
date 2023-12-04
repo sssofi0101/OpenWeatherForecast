@@ -8,6 +8,7 @@
  - Retrofit2, OkHttp3, GsonConverter, Coroutines  <br>
  - LiveData, Room <br>
 - Navigation component, Picasso, Secrets Gradle Plugin <br>
+- Реализацию Dependency Injection с помощью Dagger2 можно увидеть в ветке <a href="https://github.com/sssofi0101/OpenWeatherForecast/tree/di">di</a>
 <div style="display">
 <img src="https://github.com/sssofi0101/OpenWeatherForecast/raw/pictures/screenshot1.jpg" width = "200">
 <img src="https://github.com/sssofi0101/OpenWeatherForecast/raw/pictures/screenshot2.jpg" width = "200">
