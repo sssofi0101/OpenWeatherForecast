@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+    id("kotlin-kapt")
 
 }
 secrets {
@@ -59,6 +60,14 @@ dependencies {
     implementation ("androidx.room:room-runtime:$room_version")
     annotationProcessor ("androidx.room:room-compiler:$room_version")
     ksp("androidx.room:room-compiler:$room_version")
+
+
+    val daggerVersion = "2.48.1"
+    val dagger = "com.google.dagger:dagger:$daggerVersion"
+    val daggerCompiler = "com.google.dagger:dagger-compiler:$daggerVersion"
+    implementation (dagger)
+    //ksp(daggerCompiler)
+    kapt(daggerCompiler)
 
     implementation ("com.google.android.gms:play-services-location:21.0.1")
 
