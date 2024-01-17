@@ -11,8 +11,7 @@ import retrofit2.Call
 interface Repository {
     fun loadCurrentWeather(lat:Double,lon:Double) : Call<CurrentWeather>
     fun loadForecast(lat:Double,lon:Double) : Call<Forecast>
-
-    fun saveCurrentWeather(currentWeather: CurrentWeatherEntity)
+     fun saveCurrentWeather(currentWeather: CurrentWeatherEntity)
     fun saveForecast(days:List<MainDayForecastEntity>)
     fun saveDayDetails(dayDetails: DayDetails)
 

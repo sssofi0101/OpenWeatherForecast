@@ -1,7 +1,5 @@
 package com.example.openweatherforecast.di
 
-import androidx.lifecycle.ViewModel
-import androidx.room.Room
 import com.example.openweatherforecast.ForecastApp
 import com.example.openweatherforecast.data.repository.RepositoryImpl
 import com.example.openweatherforecast.data.retrofit.LoggingInterceptor
@@ -20,11 +18,12 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-@Component(modules = [DataModule::class, AppBindModule::class])
+@Component(modules = [DataModule::class, AppBindModule::class, DomainModule::class])
 interface AppComponent{
      fun inject(dayDetailedViewModel: DayDetailedViewModel)
      fun inject(weatherViewModel: WeatherViewModel)
     fun inject(retrofitImpl: RetrofitImpl)
+//    fun inject(weatherFragment: WeatherFragment)
 
     val repositoryImpl : RepositoryImpl
 }
@@ -60,6 +59,15 @@ class DataModule {
     fun provideInterceptor() : HttpLoggingInterceptor {
         return LoggingInterceptor.interceptor
     }
+
+}
+
+@Module
+class DomainModule {
+//    @Provides
+//    fun provideDaysAdapter():DaysAdapter {
+//        return DaysAdapter(arrayListOf())
+//    }
 
 }
 

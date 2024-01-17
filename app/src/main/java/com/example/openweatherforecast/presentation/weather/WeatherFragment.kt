@@ -2,6 +2,7 @@ package com.example.openweatherforecast.presentation.weather
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -15,11 +16,13 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.openweatherforecast.ForecastApp
 import com.example.openweatherforecast.databinding.FragmentWeatherBinding
 import com.example.openweatherforecast.presentation.adapters.DaysAdapter
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.squareup.picasso.Picasso
+import javax.inject.Inject
 
 class WeatherFragment : Fragment() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -28,11 +31,21 @@ class WeatherFragment : Fragment() {
 
     private val viewModel by viewModels<WeatherViewModel>()
 
+
+//    @Inject
+//    lateinit var adapter: DaysAdapter
+//
+//    override fun onAttach(context: Context) {
+//        ForecastApp.appComponent.inject(this)
+//        super.onAttach(context)
+//    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentWeatherBinding.inflate(inflater,container,false)
+
         return binding.root
     }
 

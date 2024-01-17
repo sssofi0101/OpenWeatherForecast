@@ -12,6 +12,7 @@ import com.example.openweatherforecast.domain.models.CurrentWeatherEntity
 import com.example.openweatherforecast.domain.models.MainDayForecastEntity
 import com.example.openweatherforecast.domain.usecases.DetailedDayForecastUseCase
 import com.example.openweatherforecast.domain.usecases.MainForecastUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,8 +25,7 @@ class WeatherViewModel:ViewModel() {
     var forecast = MutableLiveData<List<MainDayForecastEntity>>()
     var currentWeather = MutableLiveData<CurrentWeatherEntity>()
     val loadState = MutableLiveData<MainWeatherState>()
-    @Inject
-    lateinit var repository: RepositoryImpl
+
     @Inject
     lateinit var mainForecastUseCase:MainForecastUseCase
     @Inject
@@ -35,12 +35,8 @@ class WeatherViewModel:ViewModel() {
         ForecastApp.appComponent.inject(this)
     }
 
-    //private val repository:RepositoryImpl = RepositoryImpl(ForecastApp.remoteDataSource,ForecastApp.database)
-        //private val mainForecastUseCase = MainForecastUseCase(repository)
-    //private val detailedDayForecastUseCase = DetailedDayForecastUseCase(repository)
-
     fun loadForecast(lat:Double,lon:Double){
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             loadState.postValue(MainWeatherState.LOADING)
             val job1 = viewModelScope.launch {
                 try {
@@ -64,8 +60,6 @@ class WeatherViewModel:ViewModel() {
                             else {
                                 loadState.postValue(MainWeatherState.error("Произошла ошибка при получении данных"))
                                 currentWeather.postValue(mainForecastUseCase.getCachedCurrentWeather())
-
-
                             }
                         }
 
@@ -78,7 +72,7 @@ class WeatherViewModel:ViewModel() {
                     loadState.postValue(MainWeatherState.error("Произошла ошибка при получении данных"))
                 }
             }
-            val job2 = viewModelScope.launch {
+            val job2 = viewModelScope.launch(Dispatchers.IO) {
                 try {
                     val response = mainForecastUseCase.getMainForecast(lat, lon)
                     response.enqueue(object : Callback<Forecast> {

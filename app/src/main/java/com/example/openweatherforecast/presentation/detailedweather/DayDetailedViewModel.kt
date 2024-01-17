@@ -26,11 +26,6 @@ class DayDetailedViewModel: ViewModel() {
     }
 
     val dayDetails = MutableLiveData<DayDetailsEntity>()
-//    private val repository: RepositoryImpl = RepositoryImpl(
-//        ForecastApp.remoteDataSource,
-//        ForecastApp.database)
-//    //private val repository:RepositoryImpl = ForecastApp.appComponent.repositoryImpl
-//    private val detailedDayForecastUseCase = DetailedDayForecastUseCase(repository)
 
     fun loadDetails(date: String) {
         val result = detailedDayForecastUseCase.getCachedDetailedForecast(date)

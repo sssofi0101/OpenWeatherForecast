@@ -15,13 +15,10 @@ class RetrofitImpl
     init {
         ForecastApp.appComponent.inject(this)
     }
-
-
     private fun getService() : WeatherApi
     {
         return retrofit.create(WeatherApi::class.java)
     }
-
     companion object {
         fun getService() = RetrofitImpl().getService()
     }
