@@ -9,6 +9,7 @@ import com.example.openweatherforecast.data.room.entities.Day
 import com.example.openweatherforecast.data.room.entities.DayDetails
 import com.example.openweatherforecast.domain.interfaces.Repository
 import com.example.openweatherforecast.domain.models.CurrentWeatherEntity
+import com.example.openweatherforecast.domain.models.DayDetailedFullEntity
 import com.example.openweatherforecast.domain.models.DayDetailsEntity
 import com.example.openweatherforecast.domain.models.MainDayForecastEntity
 import retrofit2.Call
@@ -38,8 +39,8 @@ class RepositoryImpl @Inject constructor( private val remoteDataSource: WeatherA
         localDatabase.daysDao().addAllDays(*daysDb.toTypedArray())
     }
 
-    override fun saveDayDetails(dayDetails: DayDetails) {
-        localDatabase.dayDetailsDao().addDayDetails(dayDetails)
+    override fun saveDayDetails(dayDetails: DayDetailsEntity) {
+        localDatabase.dayDetailsDao().addDayDetails(DayDetails(dayDetails.date, dayDetails.max_gust, dayDetails.avg_visibility))
     }
 
     override fun loadCachedCurrentWeather(): CurrentWeatherEntity {
@@ -52,7 +53,7 @@ class RepositoryImpl @Inject constructor( private val remoteDataSource: WeatherA
         return days.map { it -> MainDayForecastEntity(it.date, it.min_temp, it.max_temp, it.clouds, it.pressure, it.humidity,it.wind_speed) }
     }
 
-    override fun loadCachedDayDetails(date: String): DayDetailsEntity {
+    override fun loadCachedDayDetails(date: String): DayDetailedFullEntity {
         return localDatabase.dayDetailsDao().getFullDayInfo(date)
     }
 

@@ -9,6 +9,7 @@ import com.example.openweatherforecast.data.retrofit.models.CurrentWeather
 import com.example.openweatherforecast.data.retrofit.models.Forecast
 import com.example.openweatherforecast.data.room.entities.DayDetails
 import com.example.openweatherforecast.domain.models.CurrentWeatherEntity
+import com.example.openweatherforecast.domain.models.DayDetailsEntity
 import com.example.openweatherforecast.domain.models.MainDayForecastEntity
 import com.example.openweatherforecast.domain.usecases.DetailedDayForecastUseCase
 import com.example.openweatherforecast.domain.usecases.MainForecastUseCase
@@ -122,12 +123,12 @@ class WeatherViewModel:ViewModel() {
             MainDayForecastEntity("",1000.0,-1000.0,0.0,0.0,0.0,0.0),
             MainDayForecastEntity("",1000.0,-1000.0,0.0,0.0,0.0,0.0))
 
-        val dayDetailsList: MutableList<DayDetails> = mutableListOf(
-            DayDetails("",0L,0L),
-            DayDetails("",0L,0L),
-            DayDetails("",0L,0L),
-            DayDetails("",0L,0L),
-            DayDetails("",0L,0L)
+        val dayDetailsList: MutableList<DayDetailsEntity> = mutableListOf(
+            DayDetailsEntity("",0L,0L),
+            DayDetailsEntity("",0L,0L),
+            DayDetailsEntity("",0L,0L),
+            DayDetailsEntity("",0L,0L),
+            DayDetailsEntity("",0L,0L)
         )
         fun editInfo(i: Int,d:Int) {
 

@@ -5,7 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.openweatherforecast.data.room.entities.DayDetails
-import com.example.openweatherforecast.domain.models.DayDetailsEntity
+import com.example.openweatherforecast.domain.models.DayDetailedFullEntity
 
 @Dao
 interface DayDetailsDao {
@@ -18,6 +18,6 @@ interface DayDetailsDao {
 
     @Query("SELECT DayDetails.date,max_gust,avg_visibility,humidity,clouds,pressure, wind_speed," +
             "max_temp,min_temp FROM DayDetails INNER JOIN Days ON DayDetails.date = Days.date WHERE DayDetails.date LIKE :date")
-    fun getFullDayInfo(date : String) : DayDetailsEntity
+    fun getFullDayInfo(date : String) : DayDetailedFullEntity
 
 }
