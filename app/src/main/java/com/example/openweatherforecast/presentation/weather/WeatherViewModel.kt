@@ -26,8 +26,6 @@ class WeatherViewModel:ViewModel() {
     var currentWeather = MutableLiveData<CurrentWeatherEntity>()
     val loadState = MutableLiveData<MainWeatherState>()
     @Inject
-    lateinit var repository: RepositoryImpl
-    @Inject
     lateinit var mainForecastUseCase:MainForecastUseCase
     @Inject
     lateinit var detailedDayForecastUseCase: DetailedDayForecastUseCase
