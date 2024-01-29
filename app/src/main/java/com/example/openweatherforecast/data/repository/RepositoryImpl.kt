@@ -12,19 +12,42 @@ import com.example.openweatherforecast.domain.models.CurrentWeatherEntity
 import com.example.openweatherforecast.domain.models.DayDetailedFullEntity
 import com.example.openweatherforecast.domain.models.DayDetailsEntity
 import com.example.openweatherforecast.domain.models.MainDayForecastEntity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor( private val remoteDataSource: WeatherApi, private val localDatabase: AppDatabase): Repository {
     override fun loadCurrentWeather(lat: Double, lon: Double) : Call<CurrentWeather> {
        return remoteDataSource.getCurrentWeather(lat,lon,BuildConfig.API_KEY)
+        TODO("Здесь сделать обработку запроса к API")
     }
 
-    override fun loadForecast(lat:Double,lon:Double): Call<Forecast>{
-        return remoteDataSource.getForecast(lat,lon,BuildConfig.API_KEY)
+    override suspend fun loadForecast(lat:Double, lon:Double):  Forecast {
+        var forecast:Forecast? = null
+        val job =
+            coroutineScope{
+                launch (Dispatchers.IO) {
+                    try {
+                        val response = remoteDataSource.getForecast(lat,lon,BuildConfig.API_KEY)
+                        val r = response.execute()
+                        if (r.body() != null) {
+                            forecast = r.body()!!
+                        } else {
+                            throw Exception("С сервера пришел пустой ответ")
+                        }
+                    }
+                    catch (e:java.lang.Exception){
+                        throw Exception("Произошла ошибка при запросе данных. ${e.message}")
+                    }
+
+                }
+            }
+        job.join()
+        return forecast!!
+
     }
-
-
 
     override fun saveCurrentWeather(currentWeather: CurrentWeatherEntity) {
         localDatabase.currentWeatherDao().deleteCurrentWeather()

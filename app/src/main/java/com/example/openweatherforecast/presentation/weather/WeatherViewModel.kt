@@ -4,10 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.openweatherforecast.ForecastApp
-import com.example.openweatherforecast.data.repository.RepositoryImpl
 import com.example.openweatherforecast.data.retrofit.models.CurrentWeather
 import com.example.openweatherforecast.data.retrofit.models.Forecast
-import com.example.openweatherforecast.data.room.entities.DayDetails
 import com.example.openweatherforecast.domain.models.CurrentWeatherEntity
 import com.example.openweatherforecast.domain.models.DayDetailsEntity
 import com.example.openweatherforecast.domain.models.MainDayForecastEntity
@@ -36,7 +34,7 @@ class WeatherViewModel:ViewModel() {
     }
 
 
-    fun loadForecast(lat:Double,lon:Double){
+    fun loadForecast(lat:Double,lon:Double) {
         viewModelScope.launch (Dispatchers.IO) {
             loadState.postValue(MainWeatherState.LOADING)
             val job1 = viewModelScope.launch {
@@ -62,7 +60,6 @@ class WeatherViewModel:ViewModel() {
                                 loadState.postValue(MainWeatherState.error("Произошла ошибка при получении данных"))
                                 currentWeather.postValue(mainForecastUseCase.getCachedCurrentWeather())
 
-
                             }
                         }
 
@@ -77,31 +74,20 @@ class WeatherViewModel:ViewModel() {
             }
             val job2 = viewModelScope.launch(Dispatchers.IO) {
                 try {
-                    val response = mainForecastUseCase.getMainForecast(lat, lon)
-                    response.enqueue(object : Callback<Forecast> {
-                        override fun onResponse(
-                            call: Call<Forecast>,
-                            response: Response<Forecast>
-                        ) {
-                            if (response.body() != null) {
-                                val entities = getMainDayForecastEntities(response.body()!!)
-                                mainForecastUseCase.saveMainForecast(entities)
-                                 forecast.postValue(entities)
-
-                            }
-                            else {
-                                loadState.postValue(MainWeatherState.error("Произошла ошибка при получении данных"))
-                                forecast.postValue(mainForecastUseCase.getCachedMainForecast())
-                            }
-                        }
-
-                        override fun onFailure(call: Call<Forecast>, t: Throwable) {
-                            forecast.postValue(mainForecastUseCase.getCachedMainForecast())
-                        }
-
-                    })
-                } catch (e: Exception) {
-                    loadState.postValue(MainWeatherState.error("Произошла ошибка при получении данных"))
+                    val response = mainForecastUseCase.getMainForecast(lat,lon)
+                    val entities = getMainDayForecastEntities(response)
+                    mainForecastUseCase.saveMainForecast(entities)
+                    forecast.postValue(entities)
+                }
+                catch (e:java.lang.Exception){
+                    if (e.message == "Произошла ошибка при запросе данных. С сервера пришел пустой ответ") {
+                        loadState.postValue(MainWeatherState.error("Произошла ошибка при получении данных"))
+                        forecast.postValue(mainForecastUseCase.getCachedMainForecast())
+                    }
+                    else {
+                        loadState.postValue(MainWeatherState.error("Произошла ошибка при запросе данных"))
+                        forecast.postValue(mainForecastUseCase.getCachedMainForecast())
+                    }
                 }
             }
             job1.join()
@@ -109,7 +95,6 @@ class WeatherViewModel:ViewModel() {
             loadState.postValue(MainWeatherState.LOADED)
         }
     }
-
 
     private fun getMainDayForecastEntities(body: Forecast) : MutableList<MainDayForecastEntity> {
         val curUnixDate = ("${body.list.first().dt}"+"000").toLong()
@@ -218,8 +203,6 @@ class WeatherViewModel:ViewModel() {
         return daysForecastEntities
     }
 
-
-
     private fun getDate(currentDateUnix:Long, dayOrder: Int): Date {
         val MILLIS_IN_A_DAY:Long = 1000 * 60 * 60 * 24
         val currentDate = Date(currentDateUnix)
@@ -228,4 +211,5 @@ class WeatherViewModel:ViewModel() {
     private fun getStringDay(dt: Date) : String{
         return DateFormat.getDateInstance(DateFormat.LONG).format(dt)
     }
+
 }
