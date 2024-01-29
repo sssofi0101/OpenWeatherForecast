@@ -10,8 +10,7 @@ import com.example.openweatherforecast.domain.models.MainDayForecastEntity
 import retrofit2.Call
 
 interface Repository {
-    fun loadCurrentWeather(lat:Double,lon:Double) : Call<CurrentWeather>
-    //fun loadForecast(lat:Double, lon:Double) : Call<Forecast>
+    suspend fun loadCurrentWeather(lat:Double, lon:Double) : CurrentWeatherEntity
     suspend fun loadForecast(lat:Double, lon:Double) : Forecast
 
     fun saveCurrentWeather(currentWeather: CurrentWeatherEntity)

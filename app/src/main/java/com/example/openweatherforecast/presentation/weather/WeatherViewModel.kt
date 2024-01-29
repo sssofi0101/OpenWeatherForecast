@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.openweatherforecast.ForecastApp
-import com.example.openweatherforecast.data.retrofit.models.CurrentWeather
 import com.example.openweatherforecast.data.retrofit.models.Forecast
 import com.example.openweatherforecast.domain.models.CurrentWeatherEntity
 import com.example.openweatherforecast.domain.models.DayDetailsEntity
@@ -13,9 +12,6 @@ import com.example.openweatherforecast.domain.usecases.DetailedDayForecastUseCas
 import com.example.openweatherforecast.domain.usecases.MainForecastUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.sql.Date
 import java.text.DateFormat
 import javax.inject.Inject
@@ -39,37 +35,20 @@ class WeatherViewModel:ViewModel() {
             loadState.postValue(MainWeatherState.LOADING)
             val job1 = viewModelScope.launch {
                 try {
-                    val response = mainForecastUseCase.getCurrentWeather(lat, lon)
-                    response.enqueue(object : Callback<CurrentWeather> {
-                        override fun onResponse(
-                            call: Call<CurrentWeather>,
-                            response: Response<CurrentWeather>
-                        ) {
-                            if (response.body() != null) {
-                                val curWeather = response.body()!!
-                                val currentWeatherEntity = CurrentWeatherEntity(
-                                    curWeather.name,
-                                    "https://openweathermap.org/img/wn/${curWeather.weather.first().icon}@2x.png",
-                                    "${curWeather.main.temp} °C",
-                                    curWeather.weather.first().description
-                                )
-                                mainForecastUseCase.saveCurrentWeather(currentWeatherEntity)
-                                currentWeather.postValue(currentWeatherEntity)
-                            }
-                            else {
-                                loadState.postValue(MainWeatherState.error("Произошла ошибка при получении данных"))
-                                currentWeather.postValue(mainForecastUseCase.getCachedCurrentWeather())
+                    val currentWeatherEntity = mainForecastUseCase.getCurrentWeather(lat, lon)
 
-                            }
-                        }
-
-                        override fun onFailure(call: Call<CurrentWeather>, t: Throwable) {
-                            currentWeather.postValue(mainForecastUseCase.getCachedCurrentWeather())
-                        }
-
-                    })
-                } catch (e: Exception) {
-                    loadState.postValue(MainWeatherState.error("Произошла ошибка при получении данных"))
+                    mainForecastUseCase.saveCurrentWeather(currentWeatherEntity)
+                    currentWeather.postValue(currentWeatherEntity)
+                }
+                catch (e:java.lang.Exception){
+                    if (e.message == "Произошла ошибка при запросе данных. С сервера пришел пустой ответ") {
+                        loadState.postValue(MainWeatherState.error("Произошла ошибка при получении данных"))
+                        currentWeather.postValue(mainForecastUseCase.getCachedCurrentWeather())
+                    }
+                    else {
+                        loadState.postValue(MainWeatherState.error("Произошла ошибка при запросе данных"))
+                        currentWeather.postValue(mainForecastUseCase.getCachedCurrentWeather())
+                    }
                 }
             }
             val job2 = viewModelScope.launch(Dispatchers.IO) {

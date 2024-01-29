@@ -24,8 +24,14 @@ class MainForecastUseCase @Inject constructor(val repository: Repository) {
         return result
 
     }
-    fun getCurrentWeather(lat:Double, lon:Double) : Call<CurrentWeather>{
-        return repository.loadCurrentWeather(lat,lon)
+    suspend fun getCurrentWeather(lat:Double, lon:Double) : CurrentWeatherEntity {
+        val job = coroutineScope {
+            async (Dispatchers.IO){
+                repository.loadCurrentWeather(lat,lon)
+            }
+        }
+        val result = job.await()
+        return result
     }
     fun saveMainForecast(days : List<MainDayForecastEntity>){
         repository.saveForecast(days)

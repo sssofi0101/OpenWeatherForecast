@@ -12,17 +12,48 @@ import com.example.openweatherforecast.domain.models.CurrentWeatherEntity
 import com.example.openweatherforecast.domain.models.DayDetailedFullEntity
 import com.example.openweatherforecast.domain.models.DayDetailsEntity
 import com.example.openweatherforecast.domain.models.MainDayForecastEntity
+import com.example.openweatherforecast.presentation.weather.MainWeatherState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor( private val remoteDataSource: WeatherApi, private val localDatabase: AppDatabase): Repository {
-    override fun loadCurrentWeather(lat: Double, lon: Double) : Call<CurrentWeather> {
-       return remoteDataSource.getCurrentWeather(lat,lon,BuildConfig.API_KEY)
-        TODO("Здесь сделать обработку запроса к API")
+    override suspend fun loadCurrentWeather(lat: Double, lon: Double) : CurrentWeatherEntity {
+        var currentWeatherEntity:CurrentWeatherEntity? = null
+        val job =
+            coroutineScope {
+                launch(Dispatchers.IO) {
+                    try {
+                        val response =
+                            remoteDataSource.getCurrentWeather(lat, lon, BuildConfig.API_KEY)
+                        val r = response.execute()
+
+                        if (r.body() != null) {
+                            val curWeather = r.body()!!
+                            currentWeatherEntity = CurrentWeatherEntity(
+                                curWeather.name,
+                                "https://openweathermap.org/img/wn/${curWeather.weather.first().icon}@2x.png",
+                                "${curWeather.main.temp} °C",
+                                curWeather.weather.first().description
+                            )
+                        } else {
+                            throw Exception("С сервера пришел пустой ответ")
+                        }
+
+                    }
+                    catch (e:Exception){
+                        throw Exception("Произошла ошибка при запросе данных. ${e.message}")
+                    }
+                }
+            }
+        job.join()
+        return  currentWeatherEntity!!
     }
+
 
     override suspend fun loadForecast(lat:Double, lon:Double):  Forecast {
         var forecast:Forecast? = null
